@@ -1,16 +1,12 @@
 import { html } from "hono/html";
+import { currencyFormat } from "../formatters/currencyFormat";
 
-export interface Repuesto {
-  descripcion: string;
-  foto: string;
-  precio: string;
-  link: number;
-}
-
-export const Promo = (props: Repuesto) => html`
-<section class="container-flex">
-  <th scope="row"><a href="${item.link}" target="_blank">${item.descripcion}</a></th>
-  <td><img src="${item.foto}" alt="${item.descripcion}" style="max-height: 50px"/></td>
-  <td>${item.precio}</td>
-</section>
+export const Promo = (price: number) => html`
+<article class="container-flex">
+  <hgroup>
+    <h1>¡Reviví tu Equipo!</h1>
+    <p>Dale una segunda chance antes de comprar uno nuevo</p>
+  </hgroup>
+  <p>No te pierdas esta promoción por solo: <strong>${currencyFormat.format(price)}</strong></p>
+</article>
 `;

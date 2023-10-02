@@ -24,14 +24,16 @@ export const Main = (props: SiteData) => html`
       </ul>
       <ul>
         <li><a href='/servicios'>Servicios</a></li>
-        <li><a href='/ingreso'>Ingreso</a></li>
-        <li><a href='#'>Institucional</a></li>
+        <!-- 
+          <li><a href='/ingreso'>Ingreso</a></li>
+          <li><a href='#'>Institucional</a></li>
+        -->
       </ul>
     </nav>
-    <header class="container">
+    <hgroup class="container">
       <h1>${props.title}</h1>
       <p>${props.description}</p>
-    </header>
+    </hgroup>
     <main class="container">
       ${props.children}
     </main>

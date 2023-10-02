@@ -1,8 +1,5 @@
 import { Hono } from "hono";
-
-export type Env = {
-    SDB: D1Database;
-};
+import { Env } from "../api";
 
 export const customers = new Hono<{ Bindings: Env; }>()
     .post("/", async (c) => {
@@ -18,19 +15,21 @@ export const customers = new Hono<{ Bindings: Env; }>()
         }
     })
     .get("/:id", async (c) => {
-        const customerId = c.req.param("id");
-        const customer = await c.env.SDB
-            .prepare("SELECT * FROM Customers WHERE customer_id = ?")
-            .bind(customerId)
-            .run();
-        return customer.results.length > 0
-            ? c.json(customer.results[0])
+        const customerId = c.req.param("id"),
+            dbResponse = await c.env.SDB
+                .prepare("SELECT * FROM Customers WHERE customer_id = ?")
+                .bind(customerId)
+                .run();
+        return dbResponse.results.length > 0
+            ? c.json(dbResponse.results[0])
             : c.json('Customer not found.', 404);
     })
     .get("/email/:email", async (c) => {
-        const email = c.req.param("email"),
+        const email = c.req.param("email") !== ':email'
+            ? c.req.param("email")
+            : null,
             customer = await c.env.SDB
-                .prepare("SELECT * FROM Customers WHERE email = ?")
+                .prepare(`SELECT * FROM Customers WHERE email LIKE '%' || COALESCE(?, '') || '%'`)
                 .bind(email)
                 .run();
         return customer.results.length > 0
@@ -40,7 +39,6 @@ export const customers = new Hono<{ Bindings: Env; }>()
     .put("/:id", async (c) => {
         const customerId = c.req.param("id"),
             { first_name, last_name, email, phone_number, address } = await c.req.json();
-        console.log(customerId, first_name, last_name, email, phone_number, address);
 
         const result = await c.env.SDB
             .prepare(`UPDATE Customers SET first_name = ?, last_name = ?, email = ?, phone_number = ?, address = ? WHERE customer_id = ?`)

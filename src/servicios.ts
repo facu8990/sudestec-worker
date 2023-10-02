@@ -4,8 +4,9 @@ import { currencyFormat } from "./formatters/currencyFormat";
 import { Servicios } from "./blocks/Servicios";
 import { Main, SiteData } from "./blocks/Main";
 import { roundSignificant } from "./formatters/rounding";
-import { Repuesto, Repuestos } from "./blocks/Repuestos";
+import { Repuestos } from "./blocks/Repuestos";
 import { getWeeklyRate } from "./backdoor/getWeeklyRate";
+import { Repuesto, getSsd480 } from "./backdoor/ml";
 
 const servicios = new Hono();
 
@@ -22,25 +23,18 @@ servicios.get('/', (c) => {
 servicios.get('/weekly', async (c) => {
     const price = await getWeeklyRate('weekly');
 
-    return c.html(Price('clásico', price));
+    return c.html(Price('clásico', currencyFormat.format(price)));
 });
 
 servicios.get('/family', async (c) => {
     const price = await getWeeklyRate('family');
-    return c.html(Price('familiar', price));
+    return c.html(Price('familiar', currencyFormat.format(price)));
 });
 
 servicios.get('/disk', async (c) => {
-    const response = await fetch('https://api.mercadolibre.com/sites/MLA/search?q=480&category=MLA1672&power_seller=yes&BRAND=16360,9593,18623&HARD_DRIVE_AND_SSD_FORM_FACTOR=9049266&sort=price_asc&limit=1'),
-        { results }: any = await response.json(),
-        item: Repuesto = {
-            descripcion: results[0].title,
-            precio: currencyFormat.format(roundSignificant(results[0].price * 1.1)),
-            link: results[0].permalink,
-            foto: results[0].thumbnail,
-        };
+    const response = await getSsd480();
 
-    return c.html(Repuestos(item));
+    return c.html(Repuestos(response));
 });
 
 servicios.get('/psu', async (c) => {
@@ -48,7 +42,7 @@ servicios.get('/psu', async (c) => {
         { results }: any = await response.json(),
         item: Repuesto = {
             descripcion: results[0].title,
-            precio: currencyFormat.format(roundSignificant(results[0].price * 1.1)),
+            precio: roundSignificant(results[0].price * 1.1),
             link: results[0].permalink,
             foto: results[0].thumbnail,
         };

@@ -1,9 +1,23 @@
 import { currencyFormat } from "../formatters/currencyFormat";
 
-export const getWeeklyRate = async (rateType: 'family' | 'weekly') => {
-    const url: string = `https://api.sudeste.ar/api/collections/${rateType}_rate/records`,
-        response = await fetch(url),
-        { items }: any = await response.json();
-    return currencyFormat.format(items[0].price);
+type rates = 'family' | 'weekly';
 
+interface rateResponse {
+    page: number,
+    perPage: number,
+    totalPages: number,
+    totalItems: number,
+    items: Array<{
+        collectionId: string,
+        collectionName: string,
+        id: string,
+        price: number;
+    }>;
+}
+
+export const getWeeklyRate = async (rateType: rates) => {
+    const response = await fetch(`https://api.sudeste.ar/api/collections/${rateType}_rate/records`),
+        { items }: rateResponse = await response.json();
+    console.log(JSON.stringify(items[0]));
+    return items[0].price;
 };
