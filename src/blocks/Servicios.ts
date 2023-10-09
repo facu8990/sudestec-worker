@@ -11,7 +11,7 @@ export const Servicios = html`
     </article>
     <article hx-get="/admin/family" hx-swap="outerHTML" hx-trigger="load" hx-target="#familyPrice">
       <hgroup>
-        <h3>Servicio clásico</h3>
+        <h3>Servicio familiar</h3>
         <p id="familyPrice" class="htmx-indicator" aria-busy="true"></p>
       </hgroup>  
     </article>
@@ -26,10 +26,10 @@ export const Servicios = html`
       </tr>
     </thead>
     <tbody>
-      <tr hx-get="/admin/disk" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
+      <tr hx-get="/api/disk" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
       <td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td>
       </tr>
-      <tr hx-get="/admin/psu" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
+      <tr hx-get="/api/psu" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
       <td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td>
       </tr>
     </tbody>

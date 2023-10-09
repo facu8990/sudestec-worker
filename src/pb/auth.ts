@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { Env } from "../api";
-import { setSignedCookie } from 'hono/cookie';
-import { decode } from "hono/jwt";
+import { deleteCookie, setSignedCookie } from 'hono/cookie';
 
 interface UserRecord {
   id: string;
@@ -45,7 +44,7 @@ export const auth = new Hono<{ Bindings: Env; }>()
     const formData = await c.req.formData(),
       username = formData.get('username'),
       password = formData.get('password'),
-      servicePrice = await fetch(c.env.PB_URL + '/api/collections/employees/auth-with-password', {
+      authResponse = await fetch(c.env.PB_URL + '/api/collections/employees/auth-with-password', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -53,12 +52,12 @@ export const auth = new Hono<{ Bindings: Env; }>()
           password: password
         })
       });
-    if (servicePrice.status !== 200) {
-      const response: ErrorResponse = await servicePrice.json();
 
+    if (authResponse.status !== 200) {
+      const response: ErrorResponse = await authResponse.json();
       return c.json(response.message, response.code);
     } else {
-      const response: SuccessResponse = await servicePrice.json();
+      const response: SuccessResponse = await authResponse.json();
       await setSignedCookie(c, 's_cookie', response.token, 'server-secret', {
         path: '/',
         httpOnly: true,
@@ -66,6 +65,16 @@ export const auth = new Hono<{ Bindings: Env; }>()
         sameSite: 'Strict',
       });
       c.header('HX-Refresh', 'true');
-      return c.json(response, 200);
+      return c.json('Login successful', 200);
     }
+  })
+  .get('/', async (c) => {
+    deleteCookie(c, 's_cookie', {
+      path: '/',
+      httpOnly: true,
+      maxAge: 1790,
+      sameSite: 'Strict',
+    });
+    c.header('HX-Location', '/');
+    return c.json('Logout successful', 200);
   });
