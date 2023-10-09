@@ -39,7 +39,7 @@ export const Main = (props: SiteData) => html`
       <footer class="container-fluid">
         <hgroup>
           <h4>Sudestec - 2023</h4>
-          <p>Sitio desarrollado por <a href="https://www.linkedin.com/in/facundo-redon">Facundo Redon</a></p>
+          <p>Sitio desarrollado por <a href="https://www.linkedin.com/in/facundo-redon" target="_blank">Facundo Redon</a></p>
         </hgroup>
       </footer>
     </body>
