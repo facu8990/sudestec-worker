@@ -4,12 +4,16 @@ export const Servicios = html`
 <section>
   <div class='grid'>
     <article hx-get="/admin/weekly" hx-swap="outerHTML" hx-trigger="load" hx-target="#weeklyPrice">
-      <h5>Servicio clásico</h5>
-      <p id="weeklyPrice" class="htmx-indicator" aria-busy="true"></p>
+      <hgroup>
+        <h3>Servicio clásico</h3>
+        <p id="weeklyPrice" class="htmx-indicator" aria-busy="true"></p>
+      </hgroup>  
     </article>
     <article hx-get="/admin/family" hx-swap="outerHTML" hx-trigger="load" hx-target="#familyPrice">
-      <h5>Servicio clásico</h5>
-      <p id="familyPrice" class="htmx-indicator" aria-busy="true"></p>
+      <hgroup>
+        <h3>Servicio clásico</h3>
+        <p id="familyPrice" class="htmx-indicator" aria-busy="true"></p>
+      </hgroup>  
     </article>
   </div>
   <h3>Repuestos</h3>

@@ -51,7 +51,7 @@ export const auth = new Hono<{ Bindings: Env; }>()
         body: JSON.stringify({
           identity: username,
           password: password
-        }),
+        })
       });
     if (servicePrice.status !== 200) {
       const response: ErrorResponse = await servicePrice.json();
