@@ -36,10 +36,10 @@ export const Main = (props: SiteData) => html`
       <main class="container">
         ${props.children}
       </main>
-      <footer>
+      <footer class="container-fluid">
         <hgroup>
-          <h3>Footer</h3>
-          <p>Test</p>
+          <h4>Sudestec - 2023</h4>
+          <p>Sitio desarrollado por <a href="https://www.linkedin.com/in/facundo-redon">Facundo Redon</a></p>
         </hgroup>
       </footer>
     </body>
