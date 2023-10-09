@@ -1,5 +1,3 @@
-import { currencyFormat } from "../formatters/currencyFormat";
-
 type rates = 'family' | 'weekly';
 
 interface rateResponse {
@@ -15,9 +13,8 @@ interface rateResponse {
     }>;
 }
 
-export const getWeeklyRate = async (rateType: rates) => {
+export const getWeeklyRate = async (rateType: rates = 'weekly') => {
     const response = await fetch(`https://api.sudeste.ar/api/collections/${rateType}_rate/records`),
         { items }: rateResponse = await response.json();
-    console.log(JSON.stringify(items[0]));
     return items[0].price;
 };

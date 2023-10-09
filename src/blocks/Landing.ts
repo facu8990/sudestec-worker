@@ -1,11 +1,25 @@
 import { html } from "hono/html";
 
-export const Landing = () => html`
-
-    <article hx-get="/promo" hx-swap="outerHTML" hx-trigger="load">
-      <p class="htmx-indicator" aria-busy="true" ></p>
+export const Landing = html`
+<section>
+    <article>
+        <header>
+          <hgroup>
+              <h1>¡Reviví tu Equipo!</h1>
+              <p>Dale una segunda chance antes de comprar uno nuevo</p>
+          </hgroup>
+        </header>
+        <ul>
+          <li>Instalacion de Sistema Operativo</li>
+          <li>Disco de estado solido (SSD). Hasta 10 veces mas rápido que los tradicionales.</li>
+        </ul>
+        <footer hx-get="/promo" hx-swap="outerHTML" hx-trigger="load" hx-target="#promoPrice">
+            No te pierdas esta promoción por solo: <strong id="promoPrice" class="htmx-indicator" aria-busy="true"></strong>
+        </footer>
     </article>
+</section>
 
+<section>
     <article id="services">
         <h2>Nuestros Servicios</h2>
         <ul>
@@ -16,7 +30,9 @@ export const Landing = () => html`
             <li>Instalacion de software seleccionado</li>
         </ul>
     </article>
+</section>
 
+<section class="container-flex">
     <article id="why-choose-us">
         <hgroup>
             <h2>Por qué elegirnos para sus necesidades de tecnología:</h2>
@@ -31,4 +47,5 @@ export const Landing = () => html`
             <li><strong>Precios Competitivos: </strong>Ofrecemos precios competitivos para todos nuestros servicios, brindando un gran valor por su inversión en tecnología.</li>
             <li><strong>Compromiso con la Calidad: </strong>Nos esforzamos por la excelencia en todo lo que hacemos. Nuestro compromiso con la calidad nos ha convertido en el socio de confianza de numerosas empresas.</li>
         </ul>
-    </article>`;
+    </article>
+</section>`;

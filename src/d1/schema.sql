@@ -26,6 +26,16 @@ CREATE TABLE
 CREATE INDEX idx_devices_serial_number ON Devices (serial_number);
 
 CREATE TABLE
+    Preparation (
+        preparation_id TEXT PRIMARY KEY,
+        client_ip TEXT NOT NULL,
+        client_zone TEXT NOT NULL,
+        agent TEXT NOT NULL
+    );
+
+CREATE INDEX idx_preparation_id ON Preparation (preparation_id);
+
+CREATE TABLE
     ServiceQuotes (
         quote_id INTEGER PRIMARY KEY,
         customer_id INTEGER NULL,

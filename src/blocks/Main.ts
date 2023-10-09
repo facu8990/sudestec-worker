@@ -1,9 +1,10 @@
 import { html } from "hono/html";
+import { HtmlEscapedString } from "hono/utils/html";
 
 export interface SiteData {
   title: string;
   description: string;
-  children?: any;
+  children: HtmlEscapedString;
 }
 
 export const Main = (props: SiteData) => html`
@@ -14,30 +15,34 @@ export const Main = (props: SiteData) => html`
       <meta charset="UTF-8">
       <meta name="description" content="${props.description}">
       <title>${props.title}</title>
-      <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css' />
+      <link rel='icon' type='image/svg+xml' href='/static/favicon.svg' />
+      <link rel='stylesheet' href='/static/pico.css' />
     </head>
     <body>
-    <nav class='container-fluid'>
-      <ul>
-        <li><a href="/">Sudestec</a></li>
-      </ul>
-      <ul>
-        <li><a href='/servicios'>Servicios</a></li>
-        <!-- 
-          <li><a href='/ingreso'>Ingreso</a></li>
-          <li><a href='#'>Institucional</a></li>
-        -->
-      </ul>
-    </nav>
-    <hgroup class="container">
-      <h1>${props.title}</h1>
-      <p>${props.description}</p>
-    </hgroup>
-    <main class="container">
-      ${props.children}
-    </main>
+      <nav hx-boost="true" class='container-fluid'>
+        <ul>
+          <li><a href="/"><img src="/static/favicon.svg" alt="Sudestec Logo" style="height: 45px;"/></a></li>
+        </ul>
+        <ul>
+          <!-- 
+            <li><a href='#'>Institucional</a></li>
+          -->
+        </ul>
+      </nav>
+      <hgroup class="container">
+        <h1>${props.title}</h1>
+        <p>${props.description}</p>
+      </hgroup>
+      <main class="container">
+        ${props.children}
+      </main>
+      <footer>
+        <hgroup>
+          <h3>Footer</h3>
+          <p>Test</p>
+        </hgroup>
+      </footer>
     </body>
-    <script src="https://unpkg.com/htmx.org@1.9.5/dist/htmx.min.js"></script>
+    <script src="/static/htmx.js"></script>
   </html>
 `;

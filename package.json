@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "dev": "wrangler dev --remote src/index.ts",
     "deploy": "wrangler deploy --minify src/index.ts",
@@ -6,12 +7,10 @@
     "up": "drizzle-kit up:sqlite --schema=src/schema.ts"
   },
   "dependencies": {
-    "drizzle-orm": "^0.28.6",
     "hono": "^3.7.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230914.0",
-    "drizzle-kit": "^0.19.13",
     "typescript": "^5.2.2",
     "typescript-lit-html-plugin": "^0.9.0",
     "wrangler": "^3.10.0"

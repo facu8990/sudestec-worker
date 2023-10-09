@@ -1,11 +1,9 @@
 import { Hono } from "hono";
-import { customers } from "./db/customers";
-import { devices } from "./db/devices";
+import { auth } from "./pb/auth";
 
 export type Env = {
-    SDB: D1Database;
+  PB_URL: string;
 };
 
 export const api = new Hono()
-    .route('/customers', customers)
-    .route('/devices', devices);
+  .route('/auth', auth);
