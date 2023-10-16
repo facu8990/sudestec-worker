@@ -1,15 +1,14 @@
 import { Hono } from "hono";
 import { Price } from "./components/WeeklyPrice";
 import { currencyFormat } from "./formatters/currencyFormat";
-import { Servicios } from "./blocks/Servicios";
 import { Admin, Main, SiteData } from "./blocks/Main";
-import { roundSignificant } from "./formatters/rounding";
-import { Repuestos } from "./blocks/Repuestos";
 import { getWeeklyRate } from "./backdoor/getWeeklyRate";
-import { Repuesto, getSsd480 } from "./backdoor/ml";
 import { Env } from "./api";
 import { Login } from "./blocks/Login";
 import { deleteCookie, getSignedCookie } from "hono/cookie";
+import { clientes } from "./clientes";
+import { servicios } from "./servicios";
+import { html } from "hono/html";
 
 const admin = new Hono<{ Bindings: Env; }>()
   .use('*', async (c, next) => {
@@ -27,17 +26,21 @@ const admin = new Hono<{ Bindings: Env; }>()
       if (response.status === 200) await next();
       else {
         deleteCookie(c, 's_cookie');
+        c.header('HX-Refresh', 'true');
         return c.html(Main(props));
       }
     }
     return c.html(Main(props));
   })
 
+  .route('clientes', clientes)
+  .route('servicios', servicios)
+
   .get('/', async (c) => {
     const props: SiteData = {
-      title: `Nuestros servicios`,
-      description: `Sección de servicios ofrecidos por Sudestec.`,
-      children: Servicios
+      title: `Administración`,
+      description: `Sección detrás de camaras.`,
+      children: html`Hola`
     };
 
     return c.html(Admin(props));

@@ -34,18 +34,15 @@ export const Landing = html`
 </section>
 <section class="container-flex">
   <article id="why-choose-us">
-    <hgroup>
-      <h2>Por qué elegirnos para sus necesidades de tecnología:</h2>
-      <p>En Sudestec, entendemos lo esencial que son los dispositivos tecnológicos y la infraestructura informática para el éxito de su negocio. Ya sea que necesite reparaciones confiables para su PC de escritorio o portátil, esté buscando equipos personalizados que se adapten perfectamente a sus necesidades específicas o desee llevar su empresa al siguiente nivel con un servicio de cloud privado, estamos aquí para ayudar. Aquí hay algunas razones clave por las que somos la elección ideal:</p>
-    </hgroup>
+    <h2>Por qué elegirnos para sus necesidades de tecnología:</h2>
     <ul>
-      <li><strong>Experiencia y Conocimiento Profesional: </strong>Contamos con un equipo de expertos en tecnología con años de experiencia en el campo. Nuestros técnicos altamente capacitados tienen un profundo conocimiento de hardware y software, lo que nos permite brindar soluciones efectivas y duraderas.</li>
-      <li><strong>Personalización: </strong>Entendemos que cada empresa es única, por lo que ofrecemos soluciones personalizadas para satisfacer sus necesidades. Ya sea que necesite un equipo con características específicas o un entorno de cloud privado personalizado, trabajaremos estrechamente con usted para crear la solución perfecta.</li>
-      <li><strong>Reparaciones Rápidas y Confiables: </strong>Sabemos lo frustrante que puede ser tener una PC o portátil que no funciona correctamente. Nuestro servicio de reparación es rápido y confiable, lo que significa que minimizamos el tiempo de inactividad y lo mantenemos en funcionamiento.</li>
-      <li><strong>Seguridad y Privacidad: </strong>La seguridad de sus datos es una prioridad. Con nuestro servicio de cloud privado, garantizamos la máxima seguridad y privacidad para sus datos comerciales críticos. Protegemos sus activos digitales como si fueran nuestros propios.</li>
-      <li><strong>Atención al Cliente Inigualable: </strong>En Sudestec, nos enorgullece brindar un servicio al cliente excepcional. Estamos aquí para responder a sus preguntas, resolver sus problemas y brindarle el soporte que necesita en cada paso del camino.</li>
-      <li><strong>Precios Competitivos: </strong>Ofrecemos precios competitivos para todos nuestros servicios, brindando un gran valor por su inversión en tecnología.</li>
-      <li><strong>Compromiso con la Calidad: </strong>Nos esforzamos por la excelencia en todo lo que hacemos. Nuestro compromiso con la calidad nos ha convertido en el socio de confianza de numerosas empresas.</li>
+      <li><strong>Experiencia y Conocimiento:</strong> Nuestro equipo de expertos en tecnología posee amplia experiencia y profundo conocimiento en hardware y software.</li>
+      <li><strong>Personalización:</strong> Ofrecemos soluciones a medida para satisfacer las necesidades únicas de su empresa, ya sea en hardware o servicios en la nube.</li>
+      <li><strong>Reparaciones Rápidas:</strong> Minimizamos el tiempo de inactividad con un servicio de reparación rápido y confiable.</li>
+      <li><strong>Seguridad y Privacidad:</strong> Garantizamos la máxima seguridad y privacidad para sus datos empresariales críticos con nuestro servicio de nube privada.</li>
+      <li><strong>Atención al Cliente:</strong> Nos enorgullece brindar un servicio al cliente excepcional, estando aquí para responder preguntas y resolver problemas en cada paso del camino.</li>
+      <li><strong>Precios Competitivos:</strong> Ofrecemos precios competitivos, brindando un gran valor por su inversión en tecnología.</li>
+      <li><strong>Compromiso con la Calidad:</strong> Nos esforzamos por la excelencia en todo lo que hacemos, convirtiéndonos en el socio de confianza de numerosas empresas.</li>
     </ul>
   </article>
 </section>`;

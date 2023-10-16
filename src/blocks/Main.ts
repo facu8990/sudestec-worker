@@ -17,6 +17,7 @@ export const Main = (props: SiteData) => html`
       <title>${props.title}</title>
       <link rel='icon' type='image/svg+xml' href='/static/favicon.svg' />
       <link rel='stylesheet' href='/static/pico.css' />
+      <link rel='stylesheet' href='/static/custom.css' />
     </head>
     <body>
       <nav hx-boost="true" class='container-fluid'>
@@ -29,11 +30,11 @@ export const Main = (props: SiteData) => html`
           -->
         </ul>
       </nav>
-      <hgroup class="container">
-        <h1>${props.title}</h1>
-        <p>${props.description}</p>
-      </hgroup>
       <main class="container">
+        <hgroup>
+          <h1>${props.title}</h1>
+          <p>${props.description}</p>
+        </hgroup>
         ${props.children}
       </main>
       <footer class="container-fluid">
@@ -57,11 +58,14 @@ export const Admin = (props: SiteData) => html`
       <title>${props.title}</title>
       <link rel='icon' type='image/svg+xml' href='/static/favicon.svg' />
       <link rel='stylesheet' href='/static/pico.css' />
+      <link rel='stylesheet' href='/static/custom.css' />
     </head>
     <body>
       <nav hx-boost="true" class='container-fluid'>
         <ul>
           <li><a href="/"><img src="/static/favicon.svg" alt="Sudestec Logo" style="height: 45px;"/></a></li>
+          <li><strong>${props.title}</strong></li>
+          <li><i>${props.description}</i></li>
         </ul>
         <ul>
           <li><a href='/admin/servicios'>Servicios</a></li>
@@ -72,10 +76,6 @@ export const Admin = (props: SiteData) => html`
           -->
         </ul>
       </nav>
-      <hgroup class="container">
-        <h1>${props.title}</h1>
-        <p>${props.description}</p>
-      </hgroup>
       <main class="container">
         ${props.children}
       </main>

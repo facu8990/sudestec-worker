@@ -10,13 +10,14 @@ export type Env = {
 
 export const api = new Hono()
   .route('/auth', auth)
+
   .get('/disk', async (c) => {
     const response = await getSsd480();
     return c.html(Repuestos(response));
   })
 
   .get('/psu', async (c) => {
-    const response = await fetch('https://api.mercadolibre.com/sites/MLA/search?q=500&shipping_cost=free&category=MLA430916&power_seller=yes&sort=price_asc&limit=1&POWER_OUTPUT=(*-600W)https://api.mercadolibre.com/sites/MLA/search?q=500&shipping_cost=free&category=MLA430916&power_seller=yes&sort=price_asc&limit=1&POWER_OUTPUT=(*-600W)'),
+    const response = await fetch('https://api.mercadolibre.com/sites/MLA/search?q=500&shipping_cost=free&category=MLA430916&power_seller=yes&sort=price_asc&limit=1&POWER_OUTPUT=(*-600W)'),
       { results }: any = await response.json(),
       item: Repuesto = {
         descripcion: results[0].title,
