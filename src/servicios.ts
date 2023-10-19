@@ -1,6 +1,7 @@
 import { Hono } from "hono";
-import { Admin, SiteData } from "./blocks/Main";
+import { Admin } from "./blocks/Main";
 import { Servicios } from "./blocks/Servicios";
+import { SiteData } from "./types";
 
 
 export const servicios = new Hono()

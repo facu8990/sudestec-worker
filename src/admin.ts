@@ -5,7 +5,7 @@ import { Admin, Main, SiteData } from "./blocks/Main";
 import { getWeeklyRate } from "./backdoor/getWeeklyRate";
 import { Env } from "./api";
 import { Login } from "./blocks/Login";
-import { deleteCookie, getSignedCookie } from "hono/cookie";
+import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import { clientes } from "./clientes";
 import { servicios } from "./servicios";
 import { html } from "hono/html";
@@ -23,8 +23,16 @@ const admin = new Hono<{ Bindings: Env; }>()
         method: 'POST',
         headers: { "Authorization": token }
       });
-      if (response.status === 200) await next();
-      else {
+      if (response.status === 200) {
+        const { token } = await response.json();
+        await setSignedCookie(c, 's_cookie', token, 'server-secret', {
+          path: '/',
+          httpOnly: true,
+          maxAge: 1790,
+          sameSite: 'Strict',
+        });
+        await next();
+      } else {
         deleteCookie(c, 's_cookie');
         c.header('HX-Refresh', 'true');
         return c.html(Main(props));

@@ -17,7 +17,7 @@ export const clients = new Hono<{ Bindings: Env; }>()
   ;
 
 
-async function getCustomerRecords(page = 1, perPage = 30, sort = "", filter = "", expand = "") {
+async function getCustomerRecords(page = 1, perPage = 30, filter = "", sort = "", expand = "") {
   try {
     // Build the URL with the query parameters
     let url = `http://192.168.1.141:7790/api/collections/customers/records?page=${page}&perPage=${perPage}`;
@@ -44,7 +44,7 @@ async function getCustomerRecords(page = 1, perPage = 30, sort = "", filter = ""
 const page = 1,
   perPage = 30,
   sort = "-created,id",
-  filter = "(id='abc' && created>'2022-01-01')",
+  filter = `(username~'a' || email~'a' || first~'a' || last~'a')`,
   expand = "relField1,relField2.subRelField";
 
 getCustomerRecords(page, perPage, sort, filter, expand)

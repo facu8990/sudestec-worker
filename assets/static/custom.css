@@ -1,4 +1,21 @@
 body {
+  padding-left: 1dvh;
+  padding-right: 1dvh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+}
+
+main {
+  padding-left: 10vmin;
+  padding-right: 10vmin;
+}
+
+dialog>article {
+  min-width: 75vh;
+  min-width: 75dvh;
+}
+
+details[role=list] summary+ul,
+li[role=list]>ul {
+  left: auto;
 }

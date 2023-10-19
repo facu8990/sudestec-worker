@@ -6,6 +6,7 @@ import { roundSignificant } from "./formatters/rounding";
 
 export type Env = {
   PB_URL: string;
+  SDB: D1Database;
 };
 
 export const api = new Hono()
