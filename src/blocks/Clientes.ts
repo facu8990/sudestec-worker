@@ -6,18 +6,32 @@ export const SearchHeader = html`
     hx-swap="outerHTML"
     hx-trigger="keyup delay:500ms,change,select from:input" 
     hx-target="#results"
-    hx-indicator="#loading">
+    hx-indicator="#loading-client">
     <nav>
       <ul>
-        <li><span hx-get="clientes/crear" hx-indicator="#loading" hx-target="closest nav" hx-swap="beforebegin" role="button" >Nuevo</span></li>
-        <li><span id="loading" class="htmx-indicator" aria-busy="true"></span></li>
+        <li><span hx-get="clientes/crear" hx-indicator="#loading-client" hx-target="closest nav" hx-swap="beforebegin" role="button" >Nuevo</span></li>
+        <li><span id="loading-client" class="htmx-indicator" aria-busy="true"></span></li>
       </ul>
       <ul>
         <li><input type="search" name="filter" placeholder="Buscar"></li>
       </ul>
     </nav>
   </form>
-<div id="results"></div>`;
+<div id="results">
+<table>
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Correo electrónico</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Tipo</th>
+      </tr>
+    </thead>
+    <tbody id="loading-client" class="htmx-indicator" aria-busy="true"></tbody>
+  </table>
+</div>`;
 
 export const SearchResults = (results: SuccessResponse<Customer>) => `
 <div id="results">
@@ -33,7 +47,7 @@ export const SearchResults = (results: SuccessResponse<Customer>) => `
       </tr>
     </thead>
     <tbody>
-      ${results.items.map(i => `<tr hx-get="clientes/editar/${i.id}" hx-indicator="#loading" hx-target="closest table" hx-swap="beforebegin">
+      ${results.items.map(i => `<tr hx-get="clientes/editar/${i.id}" hx-indicator="#loading-client" hx-target="closest table" hx-swap="beforebegin">
           <th scope="row">${i.first}</th>
           <td>${i.last}</td>
           <td>${i.phone}</td>
@@ -61,22 +75,24 @@ export const EditarCliente = (content: CustomerDetails) => html`
 <dialog open>
   <article>
     <h3>Editar Cliente</h3>
-    <div class="grid">
-      <input type="text" placeholder="${content.first || 'Nombre/s'}">
-      <input type="text" placeholder="${content.last || 'Apellido/s'}">
+    <div>
+      <div class="two-grid">
+        <input type="text" placeholder="${content.first || 'Nombre/s'}">
+        <input type="text" placeholder="${content.last || 'Apellido/s'}">
+      </div>
+      <input type="email" placeholder="${content.email || 'Correo electrónico'}">
+      <input type="text" placeholder="${content.address || 'Dirección'}">
+      <div class="two-grid">
+        <input type="text" placeholder="${content.phone || 'Teléfono'}">
+        <input type="number" placeholder="${content.identification || 'DNI / Pasaporte'}">
+      </div>
+      <select id="tipos" hx-get="/admin/clientes/tipos" hx-trigger="load" hx-target="#tipos" hx-swap="outerHTML">
+        <option selected disabled value="">${content.type}</span></option>
+      </select>
+      <label for="file">Foto
+        <input type='file' name='photo' title="Foto">
+      </label>
     </div>
-    <input type="email" placeholder="${content.email || 'Correo electrónico'}">
-    <input type="text" placeholder="${content.address || 'Dirección'}">
-    <div class="grid">
-      <input type="text" placeholder="${content.phone || 'Teléfono'}">
-      <input type="number" placeholder="${content.identification || 'DNI / Pasaporte'}">
-    </div>
-    <select id="tipos" hx-get="/admin/clientes/tipos" hx-trigger="load" hx-target="#tipos" hx-swap="outerHTML">
-      <option selected disabled value="">${content.type}</span></option>
-    </select>
-    <label for="file">Foto
-      <input type='file' name='photo' title="Foto">
-    </label>
     <footer>
       <p hx-get="/" hx-target="closest dialog" hx-swap="delete" hx-confirm="¿Desea cancelar?" role="button" class="secondary">Cancel</p>
       <a href="#confirm" role="button">Confirm</a>
@@ -88,20 +104,18 @@ export const NuevoCliente = html`
 <dialog open>
   <article>
     <h3>Nuevo cliente</h3>
-    <div class="grid">
+    <div class="two-grid">
       <input type="text" name="first" placeholder="Nombre">
       <input type="text" name="last" placeholder="Apellido">
     </div>
-    <div class="grid">
       <input type="email" name="email" placeholder="Correo electrónico">
+      <input type="text" name="address" placeholder="Domicilio">
+    <div class="two-grid">
       <input type="text" name="phone" placeholder="Teléfono">
-    </div>
-    <input type="text" name="address" placeholder="Domicilio">
-    <div class="grid">
       <input type="number" name="identification" placeholder="DNI/Pasaporte">
-      <select id="tipos" hx-get="/admin/clientes/tipos" hx-trigger="load" hx-target="#tipos" hx-swap="outerHTML">
-      </select>
     </div>
+    <select id="tipos" hx-get="/admin/clientes/tipos" hx-trigger="load" hx-target="#tipos" hx-swap="outerHTML">
+    </select>
     <label for="file">Foto
       <input type='file' name='photo' title="Foto">
     </label>

@@ -11,35 +11,28 @@ export const Main = (props: SiteData) => html`
       <meta name="description" content="${props.description}">
       <title>${props.title}</title>
       <link rel='icon' type='image/svg+xml' href='/static/favicon.svg' />
-      <link rel='stylesheet' href='/static/pico.css' />
-      <link rel='stylesheet' href='/static/custom.css' />
+      <link rel='stylesheet' href='/static/icons.css' />
+      <link rel='stylesheet' href='/static/sudeste.css' />
+      <script src="/static/htmx.js"></script>
     </head>
     <body>
-      <nav hx-boost="true" class='container-fluid'>
+      <nav hx-boost="true">
         <ul>
           <li><a href="/"><img src="/static/favicon.svg" alt="Sudestec Logo" style="height: 45px;"/></a></li>
-          <li><strong>${props.title}</strong></li>
-          <li><i>${props.description}</i></li>
         </ul>
         <ul>
           <li><a href='#'>Institucional</a></li>
-          <!-- 
-          -->
         </ul>
       </nav>
       <main>
         ${props.children}
       </main>
       <footer>
-        <hgroup>
-          <h4>Sudestec - 2023</h4>
-          <p>Sitio desarrollado por <a href="https://www.linkedin.com/in/facundo-redon" target="_blank">Facundo Redon</a></p>
-        </hgroup>
+        <strong>${props.title}</strong>
+        <i>${props.description}</i>
       </footer>
     </body>
-    <script src="/static/htmx.js"></script>
-  </html>
-`;
+    </html>`;
 
 export const Admin = (props: SiteData) => html`
   <html>
@@ -49,19 +42,14 @@ export const Admin = (props: SiteData) => html`
       <meta name="description" content="${props.description}">
       <title>${props.title}</title>
       <link rel='icon' type='image/svg+xml' href='/static/favicon.svg' />
-      <!--
-        <link rel='stylesheet' href='/static/pico.css' />
-        
-      -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.fluid.classless.min.css">
-      <link rel='stylesheet' href='/static/custom.css' />
+      <link rel='stylesheet' href='/static/sudeste.css' />
+      <link rel='stylesheet' href='/static/icons.css' />
+      <script src="/static/htmx.js"></script>
     </head>
     <body>
-      <nav hx-boost="true" class='container-fluid'>
+      <nav hx-boost="true">
         <ul>
           <li><a href="/"><img src="/static/favicon.svg" alt="Sudestec Logo" style="height: 45px;"/></a></li>
-          <li><strong>${props.title}</strong></li>
-          <li><span id="page-loading" class="htmx-indicator" aria-busy="true"></li>
         </ul>
         <ul>
           <li>
@@ -77,24 +65,20 @@ export const Admin = (props: SiteData) => html`
               </ul>
             </details>
           </li>
-          <!-- 
-          -->
         </ul>
       </nav>
-      <main>
-        <i>${props.description}</i>
+      <main class="main-content">
           ${props.children}
       </main>
       <footer>
-        <hgroup>
-          <h4>Sudestec - 2023</h4>
-          <p>Sitio desarrollado por <a href="https://www.linkedin.com/in/facundo-redon" target="_blank">Facundo Redon</a></p>
-        </hgroup>
+        <small>
+          <strong>${props.title}</strong>
+          <i>${props.description}</i>
+        </small>
+        <small>Sitio desarrollado por <a href="https://www.linkedin.com/in/facundo-redon/">Facundo Redon</a>.</small>
       </footer>
     </body>
-    <script src="/static/htmx.js"></script>
-  </html>
-`;
+  </html>`;
 
 export const Prompt = (message: string) => html`
 <dialog open>

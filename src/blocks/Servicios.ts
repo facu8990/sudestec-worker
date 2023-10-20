@@ -2,7 +2,7 @@ import { html } from "hono/html";
 
 export const Servicios = html`
 <section>
-  <div class='grid'>
+  <div class='two-grid'>
     <article hx-get="/admin/weekly" hx-swap="outerHTML" hx-trigger="load" hx-target="#weeklyPrice">
       <hgroup>
         <h3>Servicio clásico</h3>

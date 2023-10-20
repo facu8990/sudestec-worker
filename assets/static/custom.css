@@ -10,12 +10,18 @@ main {
   padding-right: 10vmin;
 }
 
-dialog>article {
-  min-width: 75vh;
-  min-width: 75dvh;
-}
-
 details[role=list] summary+ul,
 li[role=list]>ul {
   left: auto;
+}
+
+.two-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.main-content {
+  padding-left: 5vmin;
+  padding-right: 5vmin;
 }
