@@ -2,6 +2,7 @@
 
 :root {
   --spacing: 1vmin;
+  --spacing-2: 2vmin;
 }
 
 @media (prefers-color-scheme: light) {
@@ -32,10 +33,19 @@
   fill: var(--text)
 }
 
+html * {
+  border-color: var(--accent);
+}
+
+html {
+  scrollbar-width: thin;
+  background-color: var(--background);
+  font-size: 100%;
+}
 
 body {
-  margin: 0px auto;
-  padding: 0px 1vmin 0px 1vmin;
+  margin: 0px;
+  padding: 0px var(--spacing) 0px var(--spacing);
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: var(--spacing);
@@ -54,7 +64,7 @@ body>* {
 }
 
 body>footer {
-  border-color: var(--primary);
+  border-color: var(--accent);
   border-top-style: solid;
   border-left-style: solid;
   border-right-style: solid;
@@ -66,7 +76,7 @@ body>footer {
 }
 
 body>nav {
-  border-color: var(--primary);
+  border-color: var(--accent);
   border-top-style: none;
   border-left-style: solid;
   border-right-style: solid;
@@ -74,7 +84,6 @@ body>nav {
   display: grid;
   grid-template-columns: auto auto;
   justify-content: space-between;
-  align-items: center;
 }
 
 nav>* {
@@ -82,9 +91,21 @@ nav>* {
 }
 
 body>main {
-  border-color: var(--primary);
+  display: flex;
+  flex-wrap: wrap;
+  border-color: var(--accent);
   border-style: solid;
   overflow: auto;
+}
+
+main>section {
+  flex: 1;
+}
+
+section {
+  margin: var(--spacing);
+  padding: var(--spacing);
+  background-color: var(--secondary);
 }
 
 button {
@@ -134,7 +155,7 @@ dialog article {
   background-color: var(--background);
   max-height: calc(100vh - var(--spacing) * 2);
   overflow: auto;
-  border-color: var(--primary);
+  border-color: var(--accent);
   border-style: solid;
 }
 
@@ -152,12 +173,6 @@ p {
   margin: 0px 0px var(--spacing) 0px
 }
 
-html {
-  scrollbar-width: thin;
-  line-height: 1;
-  background-color: var(--background);
-  font-size: 100%;
-}
 
 h1 {
   font-size: 4.210rem;

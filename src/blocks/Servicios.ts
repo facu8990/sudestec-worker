@@ -16,6 +16,8 @@ export const Servicios = html`
       </hgroup>  
     </article>
   </div>
+</section>
+<section>
   <h3>Repuestos</h3>
   <table>
     <thead>
