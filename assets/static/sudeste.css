@@ -90,6 +90,10 @@ nav>* {
   margin: 0px;
 }
 
+a {
+  color: var(--accent);
+}
+
 body>main {
   display: flex;
   flex-wrap: wrap;
@@ -99,13 +103,14 @@ body>main {
 }
 
 main>section {
-  flex: 1;
+  flex-grow: 1;
 }
 
 section {
   margin: var(--spacing);
   padding: var(--spacing);
-  background-color: var(--secondary);
+  border-style: solid;
+  border-color: var(--primary);
 }
 
 button {

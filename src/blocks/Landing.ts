@@ -5,7 +5,7 @@ export const Landing = html`
   <article>
     <header>
       <hgroup>
-        <h1>¡Reviví tu Equipo!</h1>
+        <h2>¡Reviví tu Equipo!</h2>
         <p>Dale una segunda chance antes de gastar en uno nuevo.</p>
       </hgroup>
     </header>
