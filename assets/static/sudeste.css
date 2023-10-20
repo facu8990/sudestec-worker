@@ -24,6 +24,15 @@
   }
 }
 
+.svg-background {
+  fill: var(--background)
+}
+
+.svg-conent {
+  fill: var(--text)
+}
+
+
 body {
   margin: 0px auto;
   padding: 0px 1vmin 0px 1vmin;
