@@ -3,19 +3,22 @@
 :root {
   --spacing: 1vmin;
   --spacing-2: 2vmin;
+  --spacing-4: 4vmin;
+  --spacing-8: 8vmin;
+  --spacing-32: 32vmin;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --text: #07012D;
     --background: #F6F5FF;
-    --primary: #CAE916;
+    --primary: #431E57;
     --secondary: #D4CDFE;
-    --accent: #6E6685;
+    --accent: #165025;
   }
 
   .color-primary {
-    color: var(--text);
+    color: var(--background);
     background-color: var(--primary);
   }
 
@@ -35,13 +38,34 @@
   }
 }
 
+@media (min-width: 540px) {
+  main {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+}
+
+@media (min-width: 1280px) {
+  main {
+    padding-left: var(--spacing-8);
+    padding-right: var(--spacing-8);
+  }
+}
+
+@media (min-width: 1820px) {
+  main {
+    padding-left: var(--spacing-32);
+    padding-right: var(--spacing-32);
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #D8D2FE;
     --background: #01000A;
-    --primary: #CAE916;
+    --primary: #CDA8E1;
     --secondary: #080132;
-    --accent: #827A99;
+    --accent: #AFE9BE;
   }
 
   .color-primary {
@@ -95,17 +119,17 @@ body {
   font-weight: 400;
 }
 
-body>* {
+nav {
   padding: var(--spacing);
-}
-
-body>nav {
   display: grid;
+  align-items: center;
   grid-template-columns: auto auto;
   justify-content: space-between;
 }
 
 body>main {
+  padding-top: var(--spacing-2);
+  padding-bottom: var(--spacing-2);
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -114,6 +138,7 @@ body>main {
 }
 
 body>footer {
+  padding: var(--spacing);
   display: grid;
   grid-template-columns: auto auto;
   justify-content: space-between;
@@ -122,11 +147,14 @@ body>footer {
 
 main>* {
   flex-grow: 1;
+}
+
+main * {
   border-radius: 2vmin;
 }
 
 article {
-  padding: var(--spacing-2);
+  padding: var(--spacing) var(--spacing-2) var(--spacing) var(--spacing-2);
   margin: var(--spacing);
   background-color: var(--secondary);
 }
@@ -147,7 +175,13 @@ details>* {
 
 details>ul {
   position: fixed;
+  background-color: var(--background);
+  border: thin solid var(--accent);
   border-top-style: none;
+}
+
+details>summary {
+  border: thin solid var(--accent);
   background-color: var(--background);
 }
 
@@ -158,6 +192,7 @@ button {
 }
 
 input {
+  padding: var(--spacing);
   margin: var(--spacing);
   color: var(--text);
 }

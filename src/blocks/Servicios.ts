@@ -18,23 +18,25 @@ export const Servicios = html`
   </div>
 </section>
 <section>
-  <h3>Repuestos</h3>
-  <table>
-    <thead>
-      <tr>
-        <th scope="col">Parte</th>
-        <th scope="col">Foto</th>
-        <th scope="col">Precio</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr hx-get="/api/disk" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
-      <td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td>
-      </tr>
-      <tr hx-get="/api/psu" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
-      <td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td>
-      </tr>
-    </tbody>
-  </table>
+  <article>
+    <h3>Repuestos</h3>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Parte</th>
+          <th scope="col">Foto</th>
+          <th scope="col">Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr hx-get="/api/disk" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
+        <td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td>
+        </tr>
+        <tr hx-get="/api/psu" hx-target="this" hx-swap="outerHTML" hx-trigger="load">
+        <td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td><td class="htmx-indicator" aria-busy="true" ></td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
 </section>
 `;

@@ -2,36 +2,28 @@ import { html } from "hono/html";
 import { Customer, CustomerDetails, CustomerTypes, SuccessResponse } from "../types";
 
 export const SearchHeader = html`
-<form hx-get="/admin/clientes/buscar"
-  hx-swap="outerHTML"
-  hx-trigger="keyup delay:500ms,change,select from:input" 
-  hx-target="#results"
-  hx-indicator="#loading-client">
-  <nav>
-    <ul>
-      <li><span hx-get="clientes/crear" hx-indicator="#loading-client" hx-target="closest nav" hx-swap="beforebegin" role="button" >Nuevo</span></li>
-      <li><span id="loading-client" class="htmx-indicator" aria-busy="true"></span></li>
-    </ul>
-    <ul>
-      <li><input type="search" name="filter" placeholder="Buscar"></li>
-    </ul>
-  </nav>
-</form>
-<div id="results">
-  <table>
-    <thead>
-      <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">Correo electrónico</th>
-        <th scope="col">Dirección</th>
-        <th scope="col">Tipo</th>
-      </tr>
-    </thead>
-    <tbody id="loading-client" class="htmx-indicator" aria-busy="true"></tbody>
-  </table>
-</div>`;
+<article>
+  <form hx-get="/admin/clientes/buscar"
+    hx-swap="outerHTML"
+    hx-trigger="keyup delay:500ms,change,select from:input" 
+    hx-target="#results"
+    hx-indicator="#loading-client">
+    <nav>
+      <ul>
+        <li><span hx-get="clientes/crear" hx-indicator="#loading-client" hx-target="closest nav" hx-swap="beforebegin" role="button" >Nuevo</span></li>
+        <li><span id="loading-client" class="htmx-indicator" aria-busy="true"></span></li>
+      </ul>
+      <ul>
+        <li><input type="search" name="filter" placeholder="Buscar"></li>
+      </ul>
+    </nav>
+  </form>
+  <div id="results">
+    <nav>
+      <p>Comience a escribir para buscar.</p>
+    </nav>
+  </div>
+</article>`;
 
 export const SearchResults = (results: SuccessResponse<Customer>) => `
 <div id="results">
@@ -58,15 +50,19 @@ export const SearchResults = (results: SuccessResponse<Customer>) => `
     </tbody>
   </table>
   <nav>
-    ${results.page > 0 && results.page < 2
-    ? `<li><input type="button" value="Atras" disabled></li>`
-    : `<li><input type="button" value="Atras"></li>`}
+    <div>
     ${results.totalPages > 0
-    ? `<li><span role="button" disabled>Página ${results.page}/${results.totalPages} Items ${results.totalItems}</span></li>`
+    ? `<p role="button" disabled>Página ${results.page}/${results.totalPages} Items ${results.totalItems}</p>`
     : ``}
+    </div>
+    <div>
+    ${results.page > 0 && results.page < 2
+    ? `<input type="button" value="Atras" disabled>`
+    : `<input type="button" value="Atras">`}
     ${results.page > 0 && results.page < results.totalPages
-    ? `<li><input type="button" value="Siguiente"></li>`
-    : `<li><input type="button" value="Siguiente" disabled></li>`}
+    ? `<input type="button" value="Siguiente">`
+    : `<input type="button" value="Siguiente" disabled>`}
+    </div>
   </nav>
 </div>`;
 

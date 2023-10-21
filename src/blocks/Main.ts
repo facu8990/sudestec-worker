@@ -47,7 +47,7 @@ export const Admin = (props: SiteData) => html`
       <script src="/static/htmx.js"></script>
     </head>
     <body>
-      <nav hx-boost="true">
+      <nav hx-boost="true" class="color-secondary">
         <ul>
           <li><a href="/"><img src="/static/favicon.svg" alt="Sudestec Logo" style="height: 45px;"/></a></li>
         </ul>
@@ -70,7 +70,7 @@ export const Admin = (props: SiteData) => html`
       <main class="main-content">
           ${props.children}
       </main>
-      <footer>
+      <footer class="color-secondary">
         <small>
           <strong>${props.title}</strong>
           <i>${props.description}</i>
