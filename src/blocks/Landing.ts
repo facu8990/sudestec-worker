@@ -1,7 +1,7 @@
 import { html } from "hono/html";
 
 export const Landing = html`
-<article class="color-primary">
+<article class="color-primary!">
   <header>
     <hgroup>
       <h2>¡Reviví tu Equipo!</h2>
@@ -15,15 +15,15 @@ export const Landing = html`
     <li><p>Disco de estado solido (SSD) de 480 GB. Hasta 10 veces más rápido que los tradicionales.</p></li>
   </ul>
   <div hx-get="/promo" hx-swap="outerHTML" hx-trigger="load" hx-target="#promoPrice">
-    <p>No te pierdas esta promoción por solo: <strong id="promoPrice" class="htmx-indicator" aria-busy="true"></strong></p>
+    <p>No te pierdas esta promoción por solo: <strong id="promoPrice"></strong></p>
   </div>
 </article>
 <article class="color-contrast" id="services">
   <h2>Nuestros Servicios</h2>
   <ul>
     <li><p>Reparación de PC.</p></li>
-    <li><p>Armado de pc a memdida. Gamer, Diseño, Oficina y Hogar.</p></li>
-    <li><p>Resguardo de informacion.</p></li>
+    <li><p>Armado de pc a medida. Gamer, Diseño, Oficina y Hogar.</p></li>
+    <li><p>Resguardo de información.</p></li>
     <li><p>Actualización de componentes</p></li>
     <li><p>Instalacion de software seleccionado.</p></li>
   </ul>

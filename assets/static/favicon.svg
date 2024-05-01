@@ -4,21 +4,21 @@
     <style>
       @media (prefers-color-scheme: light) {
         :root {
-          --text: #07012d;
-          --background: #f6f5ff;
-          --primary: #4838ad;
-          --secondary: #d4cdfe;
-          --accent: #2605fa;
+          --text: #231D10;
+          --background: #F7F5EE;
+          --primary: #2A375A;
+          --secondary: #F4F1E7;
+          --accent: #5C74B2;
         }
       }
 
       @media (prefers-color-scheme: dark) {
         :root {
-          --text: #d8d2fe;
-          --background: #01000a;
-          --primary: #6152c7;
-          --secondary: #080132;
-          --accent: #2605fa;
+          --text: #EFE9DC;
+          --background: #110F08;
+          --primary: #A5B2D5;
+          --secondary: #18150B;
+          --accent: #4D65A3;
         }
       }
 

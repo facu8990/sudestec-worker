@@ -1,18 +1,25 @@
 import { Hono } from 'hono';
 import { secureHeaders } from 'hono/secure-headers';
-import { Main, SiteData } from './blocks/Main';
+import { Main } from './blocks/Main';
 import { Landing } from './blocks/Landing';
-import { api } from './api';
+import { Env, api } from './api';
 import { getWeeklyRate } from './backdoor/getWeeklyRate';
 import { Promo } from './blocks/Promo';
 import { getSsd480 } from './backdoor/ml';
 import { serveStatic } from 'hono/cloudflare-workers';
 import admin from './admin';
+import { SiteData } from './types';
+//@ts-ignore
+import manifestJSON from "__STATIC_CONTENT_MANIFEST";
+const manifest = JSON.parse(manifestJSON);
 
-const app = new Hono()
+const app = new Hono<{ Bindings: Env; }>()
 
   .use('*', secureHeaders())
-  .use('/static/*', serveStatic({ root: './' }))
+  .use('/static/*', serveStatic({
+    root: './',
+    manifest: manifest
+  }))
 
   .route('/admin', admin)
   .route('/api', api)
@@ -28,7 +35,7 @@ const app = new Hono()
   })
 
   .get('/promo', async (c) => {
-    const servicePrice = await getWeeklyRate(),
+    const servicePrice = await getWeeklyRate(c.env.PB_URL),
       ssdPrice = await getSsd480(),
       promoPrice = servicePrice + ssdPrice.precio;
 

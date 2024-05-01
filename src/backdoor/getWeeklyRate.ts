@@ -13,8 +13,8 @@ interface rateResponse {
     }>;
 }
 
-export const getWeeklyRate = async (rateType: rates = 'weekly') => {
-    const response = await fetch(`https://api.sudeste.ar/api/collections/${rateType}_rate/records`),
+export const getWeeklyRate = async (backendUrl: any, rateType: rates = 'weekly') => {
+    const response = await fetch(`${backendUrl}/api/collections/${rateType}_rate/records`),
         { items }: rateResponse = await response.json();
     return items[0].price;
 };

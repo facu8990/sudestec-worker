@@ -3,7 +3,40 @@ import { HtmlEscapedString } from "hono/utils/html";
 export interface SiteData {
   title: string;
   description: string;
-  children: HtmlEscapedString;
+  children: HtmlEscapedString | Promise<HtmlEscapedString>;
+}
+
+export interface SuccessLogin {
+  token: string;
+  record: {
+    id: string;
+    collectionId: string;
+    collectionName: string;
+    username: string;
+    verified: boolean;
+    emailVisibility: boolean;
+    email: string;
+    created: string;
+    updated: string;
+    first: string;
+    last: string;
+    phone: number;
+    identification: number;
+    address: string;
+    photo: string;
+    type: string;
+  };
+}
+
+export interface ErrorLogin {
+  code: number;
+  message: string;
+  data: {
+    identity: {
+      code: string;
+      message: string;
+    };
+  };
 }
 
 export interface SuccessResponse<T> {
@@ -50,6 +83,7 @@ export interface CustomerDetails {
   username: string;
   verified: boolean;
 }
+
 export interface Customer {
   id: string;
   collectionId: string;

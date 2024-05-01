@@ -17,19 +17,19 @@ export const Main = (props: SiteData) => html`
     </head>
     <body>
       <nav hx-boost="true" class="color-secondary">
-        <ul>
-          <li><a href="/"><img src="/static/favicon.svg" alt="Sudestec Logo" style="height: 45px;"/></a></li>
-        </ul>
-        <ul>
-          <li><a href='#'>Institucional</a></li>
-        </ul>
+        <a href="/"><img src="/static/favicon.svg" alt="Sudestec Logo" style="height: 45px;"/></a>
+        <h4>Sudestec</h4>
+        <a href='#'>Institucional</a>  
       </nav>
       <main>
         ${props.children}
       </main>
       <footer class="color-secondary">
-        <strong>${props.title}</strong>
-        <i>${props.description}</i>
+        <small>
+          ${props.title}
+          <i>${props.description}</i>
+        </small>
+        <small>Por <a href="https://www.linkedin.com/in/facundo-redon/">Facundo Redon</a>.</small>
       </footer>
     </body>
     </html>`;
@@ -72,7 +72,7 @@ export const Admin = (props: SiteData) => html`
       </main>
       <footer class="color-secondary">
         <small>
-          <strong>${props.title}</strong>
+          <p>${props.title}</p>
           <i>${props.description}</i>
         </small>
         <small>Sitio desarrollado por <a href="https://www.linkedin.com/in/facundo-redon/">Facundo Redon</a>.</small>

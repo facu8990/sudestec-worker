@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { Price } from "./components/WeeklyPrice";
 import { currencyFormat } from "./formatters/currencyFormat";
-import { Admin, Main, SiteData } from "./blocks/Main";
+import { Admin, Main } from "./blocks/Main";
 import { getWeeklyRate } from "./backdoor/getWeeklyRate";
 import { Env } from "./api";
 import { Login } from "./blocks/Login";
@@ -9,6 +9,7 @@ import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import { clientes } from "./clientes";
 import { servicios } from "./servicios";
 import { html } from "hono/html";
+import { SiteData, SuccessLogin } from "./types";
 
 const admin = new Hono<{ Bindings: Env; }>()
   .use('*', async (c, next) => {
@@ -24,7 +25,7 @@ const admin = new Hono<{ Bindings: Env; }>()
         headers: { "Authorization": token }
       });
       if (response.status === 200) {
-        const { token } = await response.json();
+        const { token }: SuccessLogin = await response.json();
         await setSignedCookie(c, 's_cookie', token, 'server-secret', {
           path: '/',
           httpOnly: true,
@@ -55,12 +56,12 @@ const admin = new Hono<{ Bindings: Env; }>()
   })
 
   .get('/weekly', async (c) => {
-    const price = await getWeeklyRate();
+    const price = await getWeeklyRate(c.env.PB_URL);
     return c.html(Price(currencyFormat.format(price)));
   })
 
   .get('/family', async (c) => {
-    const price = await getWeeklyRate('family');
+    const price = await getWeeklyRate(c.env.PB_URL, 'family');
     return c.html(Price(currencyFormat.format(price)));
   });
 
