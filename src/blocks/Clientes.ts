@@ -52,16 +52,16 @@ export const SearchResults = (results: SuccessResponse<Customer>) => `
   <nav>
     <div>
     ${results.totalPages > 0
-    ? `<p role="button" disabled>Página ${results.page}/${results.totalPages} Items ${results.totalItems}</p>`
-    : ``}
+		? `<p role="button" disabled>Página ${results.page}/${results.totalPages} Items ${results.totalItems}</p>`
+		: ``}
     </div>
     <div>
     ${results.page > 0 && results.page < 2
-    ? `<input type="button" value="Atras" disabled>`
-    : `<input type="button" value="Atras">`}
+		? `<input type="button" value="Atras" disabled>`
+		: `<input type="button" value="Atras">`}
     ${results.page > 0 && results.page < results.totalPages
-    ? `<input type="button" value="Siguiente">`
-    : `<input type="button" value="Siguiente" disabled>`}
+		? `<input type="button" value="Siguiente">`
+		: `<input type="button" value="Siguiente" disabled>`}
     </div>
   </nav>
 </div>`;
@@ -123,9 +123,9 @@ export const NuevoCliente = html`
 </dialog>`;
 
 export const Opciones = (opciones: CustomerTypes[]) => {
-  const content = opciones.map((o) =>
-    `<option value="${o.collectionId}">${o.type}</option>`
-  ).join('');
+	const content = opciones.map((o) =>
+		`<option value="${o.collectionId}">${o.type}</option>`
+	).join('');
 
-  return `<select><option selected disabled value="">Tipo</option>${content}</select>`;
+	return `<select><option selected disabled value="">Tipo</option>${content}</select>`;
 };
