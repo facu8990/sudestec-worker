@@ -3,7 +3,6 @@ import { Admin } from "./blocks/Main";
 import { Servicios } from "./blocks/Servicios";
 import { SiteData } from "./types";
 
-
 export default new Hono<{ Bindings: CloudflareBindings; }>()
 	.get('/', async (c) => {
 		const props: SiteData = {
@@ -11,6 +10,5 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 			description: `Precios y costos.`,
 			children: Servicios
 		};
-
 		return c.html(Admin(props));
 	});

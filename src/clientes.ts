@@ -4,7 +4,6 @@ import { EditarCliente, NuevoCliente, Opciones, SearchHeader, SearchResults } fr
 import { getSignedCookie } from "hono/cookie";
 import { Customer, CustomerDetails, ErrorResponse, SiteData, SuccessResponse } from "./types";
 
-
 export default new Hono<{ Bindings: CloudflareBindings; }>()
 	.get('/', async (c) => {
 		const props: SiteData = {
@@ -12,9 +11,7 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 			description: `Búsqueda y administración.`,
 			children: SearchHeader
 		};
-
 		return c.html(Admin(props));
-
 	})
 	.get('/buscar', async (c) => {
 		const currentPage = c.req.query('page') || 1,
@@ -35,7 +32,6 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 		const response: SuccessResponse<Customer> = await search.json();
 		return c.html(SearchResults(response));
 	})
-
 	.get('/tipos', async (c) => {
 		const auth = await getSignedCookie(c, 'server-secret', 's_cookie'),
 			search = await fetch(c.env.PB_URL + `/api/collections/cliente_tipo/records`, {
@@ -50,7 +46,6 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 		}
 		const response: SuccessResponse<Customer> = await search.json();
 		return c.html(Opciones(response.items));
-
 	})
 	.get('/editar/:id', async (c) => {
 		const clientId = c.req.param('id'),
@@ -66,7 +61,6 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 			return c.html(Prompt(message));
 		}
 		const response: CustomerDetails = await search.json();
-
 		return c.html(EditarCliente(response));
 	})
 	.get('/crear', async (c) => {

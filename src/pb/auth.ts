@@ -21,12 +21,10 @@ interface UserRecord {
 	avatar: string;
 	admin: boolean;
 }
-
 interface SuccessResponse {
 	token: string;
 	record: UserRecord;
 }
-
 interface ErrorResponse {
 	code: number;
 	message: string;
@@ -37,7 +35,6 @@ interface ErrorResponse {
 		};
 	};
 }
-
 export default new Hono<{ Bindings: CloudflareBindings; }>()
 	.post('/', async (c) => {
 		const formData = await c.req.formData(),
@@ -51,7 +48,6 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 					password: password
 				})
 			});
-
 		if (authResponse.status !== 200) {
 			const response: ErrorResponse = await authResponse.json();
 			//@ts-ignore

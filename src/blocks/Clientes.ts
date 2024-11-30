@@ -1,29 +1,25 @@
 import { html } from "hono/html";
 import { Customer, CustomerDetails, CustomerTypes, SuccessResponse } from "../types";
 
-export const SearchHeader = html`
-<article>
-  <form hx-get="/admin/clientes/buscar"
-    hx-swap="outerHTML"
-    hx-trigger="keyup delay:500ms,change,select from:input" 
-    hx-target="#results"
-    hx-indicator="#loading-client">
-    <nav>
-      <ul>
-        <li><span hx-get="clientes/crear" hx-indicator="#loading-client" hx-target="closest nav" hx-swap="beforebegin" role="button" >Nuevo</span></li>
-        <li><span id="loading-client" class="htmx-indicator" aria-busy="true"></span></li>
-      </ul>
-      <ul>
-        <li><input type="search" name="filter" placeholder="Buscar"></li>
-      </ul>
-    </nav>
-  </form>
-  <div id="results">
-    <nav>
-      <p>Comience a escribir para buscar.</p>
-    </nav>
-  </div>
-</article>`;
+export const SearchHeader = html`<article>
+<form hx-get="/admin/clientes/buscar" hx-swap="outerHTML" hx-trigger="keyup delay:500ms,change,select from:input" hx-target="#results" hx-indicator="#loading-client">
+	<nav>
+		<ul>
+			<li><span hx-get="clientes/crear" hx-indicator="#loading-client" hx-target="closest nav" hx-swap="beforebegin" role="button">Nuevo</span></li>
+			<li><span id="loading-client" class="htmx-indicator" aria-busy="true"></span></li>
+		</ul>
+		<ul>
+			<li><input type="search" name="filter" placeholder="Buscar"></li>
+		</ul>
+	</nav>
+</form>
+<div id="results">
+	<nav>
+		<p>Comience a escribir para buscar.</p>
+	</nav>
+</div>
+</article>
+`;
 
 export const SearchResults = (results: SuccessResponse<Customer>) => `
 <div id="results">

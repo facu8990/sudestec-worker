@@ -1,0 +1,324 @@
+=== Contents of src/admin.ts ===
+import { Hono } from "hono";
+import { Price } from "./components/WeeklyPrice";
+import { currencyFormat } from "./formatters/currencyFormat";
+import { Admin, Main } from "./blocks/Main";
+import { getWeeklyRate } from "./backdoor/getWeeklyRate";
+import { Login } from "./blocks/Login";
+import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
+import clientes from "./clientes";
+import servicios from "./servicios";
+import { html } from "hono/html";
+import { SiteData, SuccessLogin } from "./types";
+
+export default new Hono<{ Bindings: CloudflareBindings; }>()
+	.use('*', async (c, next) => {
+		const token = await getSignedCookie(c, 'server-secret', 's_cookie'),
+			props = {
+				title: `Administración`,
+				description: `Inicio de sesión.`,
+				children: Login
+			};
+		if (token) {
+			const response = await fetch(c.env.PB_URL + '/api/collections/employees/auth-refresh', {
+				method: 'POST',
+				headers: { "Authorization": token }
+			});
+			if (response.status === 200) {
+				const { token }: SuccessLogin = await response.json();
+				await setSignedCookie(c, 's_cookie', token, 'server-secret', {
+					path: '/',
+					httpOnly: true,
+					maxAge: 1790,
+					sameSite: 'Strict',
+				});
+				await next();
+			} else {
+				deleteCookie(c, 's_cookie');
+				c.header('HX-Refresh', 'true');
+				return c.html(Main(props));
+			}
+		}
+		return c.html(Main(props));
+	})
+
+	.route('clientes', clientes)
+	.route('servicios', servicios)
+
+	.get('/', async (c) => {
+		const props: SiteData = {
+			title: `Administración`,
+			description: `Sección detrás de camaras.`,
+			children: html`<p>Hola</p>`
+		};
+
+		return c.html(Admin(props));
+	})
+
+	.get('/weekly', async (c) => {
+		const price = await getWeeklyRate(c.env.PB_URL);
+		return c.html(Price(currencyFormat.format(price)));
+	})
+
+	.get('/family', async (c) => {
+		const price = await getWeeklyRate(c.env.PB_URL, 'family');
+		return c.html(Price(currencyFormat.format(price)));
+	});
+
+
+
+=== Contents of src/api.ts ===
+import { Hono } from "hono";
+import auth from "./pb/auth";
+import { getPSU, getSsd480 } from "./backdoor/ml";
+import { Repuestos } from "./blocks/Repuestos";
+
+export default new Hono<{ Bindings: CloudflareBindings; }>()
+	.route('/auth', auth)
+
+	.get('/disk', async (c) => {
+		const response = await getSsd480();
+		return c.html(Repuestos(response));
+	})
+	.get('/psu', async (c) => {
+		const response = await getPSU();
+		return c.html(Repuestos(response));
+	});
+
+
+
+
+=== Contents of src/clientes.ts ===
+import { Hono } from "hono";
+import { Admin, Prompt } from "./blocks/Main";
+import { EditarCliente, NuevoCliente, Opciones, SearchHeader, SearchResults } from "./blocks/Clientes";
+import { getSignedCookie } from "hono/cookie";
+import { Customer, CustomerDetails, ErrorResponse, SiteData, SuccessResponse } from "./types";
+
+
+export default new Hono<{ Bindings: CloudflareBindings; }>()
+	.get('/', async (c) => {
+		const props: SiteData = {
+			title: `Clientes`,
+			description: `Búsqueda y administración.`,
+			children: SearchHeader
+		};
+
+		return c.html(Admin(props));
+
+	})
+	.get('/buscar', async (c) => {
+		const currentPage = c.req.query('page') || 1,
+			itemsPage = c.req.query('perPage') || 30,
+			filter = c.req.query('filter') || '',
+			sort = c.req.query('sort') || '',
+			auth = await getSignedCookie(c, 'server-secret', 's_cookie'),
+			search = await fetch(c.env.PB_URL + `/api/collections/clientes/records?page=${currentPage}&perPage=${itemsPage}&filter=(email~'${filter}' || first~'${filter}' || last~'${filter}')&sort=${sort}&expand=type,address`, {
+				method: 'GET',
+				headers: new Headers({
+					"Authorization": 'Bearer ' + auth
+				})
+			});
+		if (search.status !== 200) {
+			const { message }: ErrorResponse = await search.json();
+			return c.html(Prompt(message));
+		}
+		const response: SuccessResponse<Customer> = await search.json();
+		return c.html(SearchResults(response));
+	})
+
+	.get('/tipos', async (c) => {
+		const auth = await getSignedCookie(c, 'server-secret', 's_cookie'),
+			search = await fetch(c.env.PB_URL + `/api/collections/cliente_tipo/records`, {
+				method: 'GET',
+				headers: new Headers({
+					"Authorization": 'Bearer ' + auth
+				})
+			});
+		if (search.status !== 200) {
+			const { message }: ErrorResponse = await search.json();
+			return c.html(Prompt(message));
+		}
+		const response: SuccessResponse<Customer> = await search.json();
+		return c.html(Opciones(response.items));
+
+	})
+	.get('/editar/:id', async (c) => {
+		const clientId = c.req.param('id'),
+			auth = await getSignedCookie(c, 'server-secret', 's_cookie'),
+			search = await fetch(c.env.PB_URL + `/api/collections/clientes/records/${clientId}`, {
+				method: 'GET',
+				headers: new Headers({
+					"Authorization": 'Bearer ' + auth
+				})
+			});
+		if (search.status !== 200) {
+			const { message }: ErrorResponse = await search.json();
+			return c.html(Prompt(message));
+		}
+		const response: CustomerDetails = await search.json();
+
+		return c.html(EditarCliente(response));
+	})
+	.get('/crear', async (c) => {
+		return c.html(NuevoCliente);
+	});
+
+
+=== Contents of src/index.ts ===
+import { Hono } from 'hono';
+import { secureHeaders } from 'hono/secure-headers';
+import { Main } from './blocks/Main';
+import { Landing } from './blocks/Landing';
+import api from './api';
+import { getWeeklyRate } from './backdoor/getWeeklyRate';
+import { Promo } from './blocks/Promo';
+import { getSsd480 } from './backdoor/ml';
+import admin from './admin';
+import { SiteData } from './types';
+
+const app = new Hono<{ Bindings: CloudflareBindings; }>()
+	.use('*', secureHeaders())
+
+	.route('/admin', admin)
+	.route('/api', api)
+
+	.get('/', async (c) => {
+		const props: SiteData = {
+			title: `Sudestec`,
+			description: `Servicios informáticos`,
+			children: Landing
+		};
+		return c.html(Main(props));
+	})
+
+	.get('/promo', async (c) => {
+		const servicePrice = await getWeeklyRate(c.env.PB_URL),
+			ssdPrice = await getSsd480(),
+			promoPrice = servicePrice + ssdPrice.precio;
+		return c.html(Promo(promoPrice));
+	});
+
+export default app;
+
+
+=== Contents of src/servicios.ts ===
+import { Hono } from "hono";
+import { Admin } from "./blocks/Main";
+import { Servicios } from "./blocks/Servicios";
+import { SiteData } from "./types";
+
+
+export default new Hono<{ Bindings: CloudflareBindings; }>()
+	.get('/', async (c) => {
+		const props: SiteData = {
+			title: `Servicios`,
+			description: `Precios y costos.`,
+			children: Servicios
+		};
+
+		return c.html(Admin(props));
+	});
+
+
+=== Contents of src/types.ts ===
+import { HtmlEscapedString } from "hono/utils/html";
+
+export interface SiteData {
+  title: string;
+  description: string;
+  children: HtmlEscapedString | Promise<HtmlEscapedString>;
+}
+
+export interface SuccessLogin {
+  token: string;
+  record: {
+    id: string;
+    collectionId: string;
+    collectionName: string;
+    username: string;
+    verified: boolean;
+    emailVisibility: boolean;
+    email: string;
+    created: string;
+    updated: string;
+    first: string;
+    last: string;
+    phone: number;
+    identification: number;
+    address: string;
+    photo: string;
+    type: string;
+  };
+}
+
+export interface ErrorLogin {
+  code: number;
+  message: string;
+  data: {
+    identity: {
+      code: string;
+      message: string;
+    };
+  };
+}
+
+export interface SuccessResponse<T> {
+  page: number;
+  perPage: number;
+  totalPages: number;
+  totalItems: number;
+  items: T[];
+}
+
+export interface ErrorResponse {
+  code: number;
+  message: string;
+  data: {};
+}
+
+export interface CustomerTableData {
+  navigation: HtmlEscapedString;
+  rows: HtmlEscapedString;
+}
+
+export interface CustomerTypes {
+  id: string;
+  collectionId: string;
+  collectionName: string;
+  type: string;
+}
+
+export interface CustomerDetails {
+  address: string;
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  email: string;
+  emailVisibility: boolean;
+  first: string;
+  id: string;
+  identification: number;
+  last: string;
+  phone: number;
+  photo: string;
+  type: string;
+  updated: string;
+  username: string;
+  verified: boolean;
+}
+
+export interface Customer {
+  id: string;
+  collectionId: string;
+  collectionName: string;
+  email: string;
+  first: string;
+  last: string;
+  phone: number;
+  address: string;
+  type: string;
+}
+
+
+

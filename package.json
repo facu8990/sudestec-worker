@@ -1,10 +1,9 @@
 {
 	"type": "module",
 	"scripts": {
-		"dev": "wrangler dev --persist-to=.wrangler/ src/index.ts",
-		"deploy": "wrangler types --env-interface CloudflareBindings && wrangler deploy --minify src/index.ts",
-		"generate": "drizzle-kit generate:sqlite --schema=db/schema.ts",
-		"up": "drizzle-kit up:sqlite --schema=src/schema.ts",
+		"dev": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/static/main.css -m && wrangler dev --persist-to=.wrangler/ src/index.ts",
+		"deploy": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/static/main.css -m && wrangler types --env-interface CloudflareBindings && wrangler deploy --minify src/index.ts",
+		"tailwind": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/static/main.css",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
 	},
 	"dependencies": {
@@ -12,10 +11,10 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240423.0",
-		"drizzle-kit": "^0.19.13",
-		"drizzle-orm": "^0.28.6",
-		"typescript": "^5.4.5",
+		"@tailwindcss/cli": "^4.0.0-beta.3",
+		"tailwindcss": "^4.0.0-beta.3",
+		"typescript": "^5.7.2",
 		"typescript-lit-html-plugin": "^0.9.0",
-		"wrangler": "^3.53.0"
+		"wrangler": "^3.91.0"
 	}
 }

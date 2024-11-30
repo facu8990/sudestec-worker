@@ -5,7 +5,6 @@ import { Repuestos } from "./blocks/Repuestos";
 
 export default new Hono<{ Bindings: CloudflareBindings; }>()
 	.route('/auth', auth)
-
 	.get('/disk', async (c) => {
 		const response = await getSsd480();
 		return c.html(Repuestos(response));
@@ -14,5 +13,3 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 		const response = await getPSU();
 		return c.html(Repuestos(response));
 	});
-
-

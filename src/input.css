@@ -1,0 +1,92 @@
+@import "tailwindcss" source("../src");
+
+@font-face {
+	font-family: 'Ubuntu Sans Mono NF';
+	src: url('/static/UbuntuSansMonoNF-Regular.woff2') format('woff2'),
+		url('/static/UbuntuSansMonoNF-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Ubuntu Sans NF';
+	src: url('/static/UbuntuSansNF-Regular.woff2') format('woff2'),
+		url('/static/UbuntuSansNF-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@theme {
+	--font-sans: "Ubuntu Sans NF", "sans-serif";
+	--font-mono: "Ubuntu Sans Mono NF", "monospace";
+	--color-black: #040316;
+	--color-white: #fbfbfe;
+	--color-blue-50: oklch(.9591 .010 252.81);
+	--color-blue-100: oklch(.9192 .020 245.65);
+	--color-blue-200: oklch(.8378 .039 245.83);
+	--color-blue-300: oklch(.7553 .060 246.28);
+	--color-blue-400: oklch(.6704 .082 248.06);
+	--color-blue-500: oklch(.5882 .105 248.86);
+	--color-blue-600: oklch(.5011 .087 248.96);
+	--color-blue-700: oklch(.4126 .068 247.74);
+	--color-blue-800: oklch(.3164 .048 247.42);
+	--color-blue-900: oklch(.2123 .028 247.14);
+	--color-blue-950: oklch(.1550 .015 242.71);
+	--color-violet-50: oklch(.9522 .011 291.95);
+	--color-violet-100: oklch(.9049 .023 294.03);
+	--color-violet-200: oklch(.8079 .048 293.39);
+	--color-violet-300: oklch(.7088 .074 292.49);
+	--color-violet-400: oklch(.6079 .102 291.15);
+	--color-violet-500: oklch(.5049 .131 288.36);
+	--color-violet-600: oklch(.4330 .109 289.13);
+	--color-violet-700: oklch(.3571 .086 289.41);
+	--color-violet-800: oklch(.2770 .061 289.89);
+	--color-violet-900: oklch(.1907 .034 290.91);
+	--color-violet-950: oklch(.1455 .017 289.96);
+	--color-pink-50: oklch(.9581 .013 333.04);
+	--color-pink-100: oklch(.9139 .028 334.91);
+	--color-pink-200: oklch(.8282 .054 334.94);
+	--color-pink-300: oklch(.7416 .085 335.89);
+	--color-pink-400: oklch(.6561 .117 336.96);
+	--color-pink-500: oklch(.5740 .145 337.94);
+	--color-pink-600: oklch(.4895 .123 338.10);
+	--color-pink-700: oklch(.4012 .096 337.83);
+	--color-pink-800: oklch(.3079 .068 337.31);
+	--color-pink-900: oklch(.2068 .040 337.47);
+	--color-pink-950: oklch(.1511 .021 334.77);
+	--color-stone-50: oklch(.9612 0.000 89.88);
+	--color-stone-100: oklch(.9249 0.000 89.88);
+	--color-stone-200: oklch(.8452 0.000 89.88);
+	--color-stone-300: oklch(.7668 0.000 89.88);
+	--color-stone-400: oklch(.6830 0.000 89.88);
+	--color-stone-500: oklch(.5999 0.000 89.88);
+	--color-stone-600: oklch(.5103 0.000 89.88);
+	--color-stone-700: oklch(.4202 0.000 89.88);
+	--color-stone-800: oklch(.3211 0.000 89.88);
+	--color-stone-900: oklch(.2178 0.000 89.88);
+	--color-stone-950: oklch(.1591 0.000 89.88);
+	--color-neutral-50: oklch(.9670 0.008 91.48);
+	--color-neutral-100: oklch(.9366 0.018 92.69);
+	--color-neutral-200: oklch(.8705 0.035 90.53);
+	--color-neutral-300: oklch(.8057 0.053 91.40);
+	--color-neutral-400: oklch(.7403 0.071 91.79);
+	--color-neutral-500: oklch(.6744 0.087 91.76);
+	--color-neutral-600: oklch(.5732 0.073 91.53);
+	--color-neutral-700: oklch(.4673 0.058 91.15);
+	--color-neutral-800: oklch(.3549 0.041 90.37);
+	--color-neutral-900: oklch(.2355 0.024 92.99);
+	--color-neutral-950: oklch(.1686 0.012 91.89);
+	--color-orange-50: oklch(.9701 0.022 69.79);
+	--color-orange-100: oklch(.9379 0.042 68.42);
+	--color-orange-200: oklch(.8812 0.086 68.58);
+	--color-orange-300: oklch(.8258 0.126 66.37);
+	--color-orange-400: oklch(.7764 0.160 62.22);
+	--color-orange-500: oklch(.7340 0.181 55.27);
+	--color-orange-600: oklch(.6221 0.153 55.50);
+	--color-orange-700: oklch(.5052 0.122 56.91);
+	--color-orange-800: oklch(.3826 0.090 59.23);
+	--color-orange-900: oklch(.2456 0.054 63.93);
+	--color-orange-950: oklch(.1719 0.036 74.45);
+}

@@ -11,10 +11,8 @@ import { SiteData } from './types';
 
 const app = new Hono<{ Bindings: CloudflareBindings; }>()
 	.use('*', secureHeaders())
-
 	.route('/admin', admin)
 	.route('/api', api)
-
 	.get('/', async (c) => {
 		const props: SiteData = {
 			title: `Sudestec`,
@@ -23,12 +21,18 @@ const app = new Hono<{ Bindings: CloudflareBindings; }>()
 		};
 		return c.html(Main(props));
 	})
-
+	.get('/tail', async (c) => {
+		const props: SiteData = {
+			title: `Sudestec`,
+			description: `Servicios informáticos`,
+			children: Tailwind
+		};
+		return c.html(Main(props));
+	})
 	.get('/promo', async (c) => {
 		const servicePrice = await getWeeklyRate(c.env.PB_URL),
 			ssdPrice = await getSsd480(),
 			promoPrice = servicePrice + ssdPrice.precio;
 		return c.html(Promo(promoPrice));
 	});
-
 export default app;

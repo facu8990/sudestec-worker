@@ -40,25 +40,20 @@ export default new Hono<{ Bindings: CloudflareBindings; }>()
 		}
 		return c.html(Main(props));
 	})
-
 	.route('clientes', clientes)
 	.route('servicios', servicios)
-
 	.get('/', async (c) => {
 		const props: SiteData = {
 			title: `Administración`,
 			description: `Sección detrás de camaras.`,
 			children: html`<p>Hola</p>`
 		};
-
 		return c.html(Admin(props));
 	})
-
 	.get('/weekly', async (c) => {
 		const price = await getWeeklyRate(c.env.PB_URL);
 		return c.html(Price(currencyFormat.format(price)));
 	})
-
 	.get('/family', async (c) => {
 		const price = await getWeeklyRate(c.env.PB_URL, 'family');
 		return c.html(Price(currencyFormat.format(price)));

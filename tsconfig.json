@@ -13,7 +13,14 @@
 		],
 		"plugins": [
 			{
-				"name": "typescript-lit-html-plugin"
+				"name": "typescript-lit-html-plugin",
+				"format": {
+					"enabled": true
+				},
+				"tags": [
+					"html",
+					"raw"
+				]
 			}
 		]
 	},
