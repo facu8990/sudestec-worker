@@ -1,7 +1,7 @@
 {
 	"type": "module",
 	"scripts": {
-		"dev": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/static/main.css -m && wrangler dev --persist-to=.wrangler/ src/index.ts",
+		"dev": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/static/main.css -m && wrangler dev --persist-to=.wrangler/ --ip=192.168.1.141 src/index.ts",
 		"deploy": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/static/main.css -m && wrangler types --env-interface CloudflareBindings && wrangler deploy --minify src/index.ts",
 		"tailwind": "npx @tailwindcss/cli -i ./src/input.css -o ./assets/static/main.css",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings"
