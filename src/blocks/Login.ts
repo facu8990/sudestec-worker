@@ -5,6 +5,6 @@ export const Login = html`<dialog open class="mx-auto">
 		<h3>Iniciar Sesión</h3>
 		<input type="text" name="username" placeholder="Username or Email">
 		<input type="password" name="password" placeholder="Password">
-		<button class="bg-blue-800 rounded-md p-1 text-center font-bold text-blue-50" form="login-form" type="submit">Login</button>
+		<button class="bg-blue-800 text-blue-50 hover:bg-blue-700 rounded-md p-1 text-center font-bold" form="login-form" type="submit">Login</button>
 	</form>
 </dialog>`;

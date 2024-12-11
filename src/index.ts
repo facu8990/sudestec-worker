@@ -21,14 +21,6 @@ const app = new Hono<{ Bindings: CloudflareBindings; }>()
 		};
 		return c.html(Main(props));
 	})
-	.get('/tail', async (c) => {
-		const props: SiteData = {
-			title: `Sudestec`,
-			description: `Servicios informáticos`,
-			children: Tailwind
-		};
-		return c.html(Main(props));
-	})
 	.get('/promo', async (c) => {
 		const servicePrice = await getWeeklyRate(c.env.PB_URL),
 			ssdPrice = await getSsd480(),

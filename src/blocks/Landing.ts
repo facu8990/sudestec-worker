@@ -28,7 +28,7 @@ export const Landing = html`
 			</li>
 		</ul>
 		<div hx-get="/promo" hx-swap="outerHTML" hx-trigger="load" hx-target="#promoPrice" class="bg-blue-100 rounded-md p-4 text-center">
-			<p>No te pierdas esta promoción por solo: <strong class="text-blue-800">$ 86.000,00</strong></p>
+			<p>No te pierdas esta promoción por solo: <strong id="promoPrice" class="text-blue-800"></strong></p>
 		</div>
 	</article>
 	<article id="services" class="bg-green-50 rounded-lg shadow-md p-6 grid grid-flow-row auto-rows-max content-between">
